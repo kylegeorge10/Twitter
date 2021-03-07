@@ -29,6 +29,7 @@ class HomeTableViewController: UITableViewController {
     
     
     @objc func loadTweets(){
+        print("inside of loatTweets")
         numberOfTweets = 20
         let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         let myParams = ["count": numberOfTweets]
@@ -50,6 +51,7 @@ class HomeTableViewController: UITableViewController {
     
     
     func loadMoreTweets(){
+        print("inside of loadMoreTweets")
         let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         numberOfTweets = numberOfTweets + 20
         let myParams = ["count": numberOfTweets]
@@ -70,7 +72,7 @@ class HomeTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
-        if indexPath.row == tweetArray.count{
+        if indexPath.row + 1 == tweetArray.count{
             loadMoreTweets()
         }
     }//end of tableView
