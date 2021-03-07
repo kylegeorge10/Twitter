@@ -12,16 +12,47 @@ class HomeTableViewController: UITableViewController {
     
     var tweetArray = [NSDictionary]()
     var numberOfTweets : Int!
+    
+    let myRefreshControl = UIRefreshControl()
 
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadTweets()
+        
+        myRefreshControl.addTarget(self, action: #selector(loadTweets), for: .valueChanged)
+        tableView.refreshControl = myRefreshControl
 
     }//end of viewDidLoad
     
-    func loadTweets(){
+    
+    
+    @objc func loadTweets(){
+        numberOfTweets = 20
         let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
-        let myParams = ["count": 10]
+        let myParams = ["count": numberOfTweets]
+        
+        TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParams, success: { (tweets: [NSDictionary]) in
+            
+            self.tweetArray.removeAll()
+            for tweet in tweets{
+                self.tweetArray.append(tweet)
+            }
+            
+            self.tableView.reloadData()
+            self.myRefreshControl.endRefreshing()
+            
+        }, failure: { (Error) in
+            print("Could not retrieve tweets")
+        })
+    }//end of loadTweets
+    
+    
+    func loadMoreTweets(){
+        let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
+        numberOfTweets = numberOfTweets + 20
+        let myParams = ["count": numberOfTweets]
         
         TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParams, success: { (tweets: [NSDictionary]) in
             
@@ -35,13 +66,22 @@ class HomeTableViewController: UITableViewController {
         }, failure: { (Error) in
             print("Could not retrieve tweets")
         })
-    }
+    }//end of laodMoreTweets
+    
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
+        if indexPath.row == tweetArray.count{
+            loadMoreTweets()
+        }
+    }//end of tableView
+    
     
     @IBAction func onLogout(_ sender: Any) {
         TwitterAPICaller.client?.logout()
         self.dismiss(animated: true, completion: nil)
         UserDefaults.standard.set(false, forKey: "userLoggedIn")
     }// end of onLogout
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCellTableViewCell
