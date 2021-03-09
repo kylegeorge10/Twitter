@@ -25,9 +25,13 @@ Here's a walkthrough of implemented user stories:
 
 <img src='http://g.recordit.co/Htdn9hQXZc.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+
+
 Here's a walkthrough of user stays logged in across restarts:
 
 <img src='http://g.recordit.co/q7YWR3OluK.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
 
 Here's a walkthrough of infinite scroll and pull to refresh:
 
