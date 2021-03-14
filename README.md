@@ -1,4 +1,4 @@
-# Project 3 - *Name of App Here*
+# Project 3 - *Twitter*
 
 **Twitter** is a basic twitter app to read your tweets.
 
@@ -25,3 +25,14 @@ Here's a walkthrough of implemented user stories:
 
 <img src='http://g.recordit.co/Htdn9hQXZc.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+
+
+Here's a walkthrough of user stays logged in across restarts:
+
+<img src='http://g.recordit.co/q7YWR3OluK.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+
+Here's a walkthrough of infinite scroll and pull to refresh:
+
+<img src='http://g.recordit.co/zlaP4gFaJG.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
